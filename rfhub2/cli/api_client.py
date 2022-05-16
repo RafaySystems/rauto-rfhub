@@ -74,14 +74,14 @@ class Client(object):
         """
         Sends get request from given endpoint.
         """
-        request = self.session.get(url=f"{self.api_url}/{endpoint}/", params=params)
+        request = self.session.get(url=f"{self.api_url}/{endpoint}/", params=params,verify=False)
         return request.json()
 
     def _post_request(self, endpoint: str, data: str) -> Tuple[int, Dict]:
         """
         Sends post request to collections or keywords endpoint.
         """
-        request = self.session.post(url=f"{self.api_url}/{endpoint}/", data=data)
+        request = self.session.post(url=f"{self.api_url}/{endpoint}/", data=data,verify=False)
         return request.status_code, request.json()
 
     def _delete_request(self, endpoint: str, id: Optional[int] = None) -> Response:
@@ -90,6 +90,6 @@ class Client(object):
         If no id provided then deletes all collections.
         """
         if id:
-            return self.session.delete(url=f"{self.api_url}/{endpoint}/{id}/")
+            return self.session.delete(url=f"{self.api_url}/{endpoint}/{id}/",verify=False)
         else:
-            return self.session.delete(url=f"{self.api_url}/{endpoint}/")
+            return self.session.delete(url=f"{self.api_url}/{endpoint}/",verify=False)
